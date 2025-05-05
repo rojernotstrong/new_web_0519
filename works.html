@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪音教程资料</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* 思维导图样式更新 */
+        .mindmap-section {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 15px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mindmap-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+                        linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
+                        linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            opacity: 0.1;
+        }
+
+        .mindmap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .central-topic {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1a1a1a;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: none;
+        }
+
+        .disclaimer {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 20px 0 40px;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.6;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .steps-container a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .step-node {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 5px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .step-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .step-node::after {
+            content: '点击查看详情';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #666;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .step-node:hover::after {
+            opacity: 1;
+        }
+
+        .step-node.step-1 { border-color: #00b4d8; }
+        .step-node.step-2 { border-color: #0096c7; }
+        .step-node.step-3 { border-color: #0077b6; }
+        .step-node.step-4 { border-color: #023e8a; }
+
+        .step-number {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .action {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .result {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1024px) {
+            .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .step-node {
+                width: 90%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .central-topic {
+                font-size: 1.4em;
+                padding: 15px 30px;
+            }
+            .disclaimer {
+                font-size: 0.9em;
+                margin: 15px 0 30px;
+            }
+        }
+
+        /* 课程模块样式 */
+        .course-modules {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 15px;
+            margin: 40px auto;
+            color: #fff;
+            max-width: 1200px; /* 与其他部分保持一致的宽度 */
+        }
+
+        .course-modules h2 {
+            font-size: 2em;
+            color: #ff3366;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .modules-container {
+            display: flex;
+            gap: 30px;
+            margin: 0 auto;
+        }
+
+        .module-section {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .module-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .module-title h3 {
+            font-size: 1.2em;
+            color: #00CEDD;
+            margin: 0;
+            margin-left: 10px;
+        }
+
+        .module-title .folder-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .module-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .course-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .course-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(5px);
+        }
+
+        .course-item h4 {
+            color: #fff;
+            margin: 0 0 8px 0;
+            font-size: 1em;
+        }
+
+        .course-item p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .highlight-section {
+            background: rgba(255, 51, 102, 0.1);
+            border-left: 4px solid #ff3366;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-section h4 {
+            color: #ff3366;
+            margin: 0 0 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .modules-container {
+                flex-direction: column;
+            }
+            
+            .module-section {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* 二维码样式 */
+        .qrcode-section {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 300px;
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .qrcode-section img {
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .qrcode-section.visible img {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .qrcode-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .qrcode-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(-45deg,#ff3366, #00CEDD);
+            border-radius: 16px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+    </style>
+    <script>
+        // 监听滚动事件，控制GIF播放
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrcodeSection = document.querySelector('.qrcode-section');
+            const qrcodeImg = document.querySelector('.qrcode-gif');
+            let hasPlayed = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasPlayed) {
+                        qrcodeSection.classList.add('visible');
+                        // 重新加载GIF触发播放
+                        qrcodeImg.src = qrcodeImg.src;
+                        hasPlayed = true;
+                        
+                        // 播放完成后停止在最后一帧
+                        setTimeout(() => {
+                            const staticImage = qrcodeImg.src;
+                            qrcodeImg.src = '';
+                            qrcodeImg.src = staticImage;
+                        }, 3000); // 根据GIF实际时长调整这个值
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            observer.observe(qrcodeSection);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <svg class="mockup-logo" viewBox="0 0 100 100" width="40" height="40">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#00b4d8" stroke-width="8"/>
+                    <path d="M30 50 L45 65 L70 35" stroke="#00b4d8" stroke-width="8" fill="none"/>
+                </svg>
+            </div>
+            <ul>
+                <li><a href="index.html#about">关于我</a></li>
+                <li><a href="works.html" class="active">资料合集</a></li>
+                <li><a href="index.html#group">社群</a></li>
+                <li><a href="index.html#class">教学&咨询</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="works-section">
+            <h1>B站往期教程</h1>
+            <div class="video-grid">
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV1hP4y1W7HJ/" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="picture/封面1.jpg" alt="男伪女伪音教程封面">
+                            <div class="video-stats">
+                                <span><svg class="icon" style="width: 1.1416015625em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1169 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7606"><path d="M829.373492 0c10.816644 0 20.463921 3.654272 27.772465 10.816644a34.56941 34.56941 0 0 1 4.238955 45.459139l-4.312041 5.115981-95.084148 89.091142h220.279495c92.453073 0 167.146385 79.882378 171.896938 182.128899l0.219256 12.863036v422.506888c0 102.831204-70.965955 187.975733-161.884234 194.626507l-11.401327 0.365428h-49.405753c0 33.76547-28.868746 60.222397-63.803583 60.222396-32.15759 0-59.272286-23.606595-63.291984-52.767682l-0.511599-7.454714H355.195204c0 33.76547-28.868746 60.222397-63.803583 60.222396-32.230676 0-59.345371-23.606595-63.291985-52.767682l-0.511598-7.454714h-54.156306c-92.453073 0-167.146385-79.809293-172.993219-182.055814L0 767.981729v-422.433802c0-104.073656 70.965955-188.121904 161.884234-194.699594l11.474413-0.365427h223.860681L302.208265 61.391764a34.934837 34.934837 0 0 1 0-50.57512A42.389551 42.389551 0 0 1 329.761473 0c8.697167 0 16.590393 2.338734 23.094997 6.943116l4.604382 3.873528 149.240454 139.593177h145.659268L801.747199 10.889729A42.389551 42.389551 0 0 1 829.519663 0z" fill="#979797" p-id="7607"/><path d="M814.902577 591.041896l-346.644209 202.227392c-28.868746 16.80965-52.986939 3.654272-52.986938-31.280565v-405.624152c0-33.76547 24.118193-48.236386 52.986938-31.353651l346.717294 203.469845c28.868746 18.052102 28.868746 44.509029 0 62.561131z" fill="#979797" p-id="7608"/></svg>162.1万</span>
+                                <span><svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9609"><path d="M800 128H224C134.4 128 64 198.4 64 288v448c0 89.6 70.4 160 160 160h576c89.6 0 160-70.4 160-160V288c0-89.6-70.4-160-160-160z m96 608c0 54.4-41.6 96-96 96H224c-54.4 0-96-41.6-96-96V288c0-54.4 41.6-96 96-96h576c54.4 0 96 41.6 96 96v448zM240 384h64v64h-64zM368 384h384v64h-384zM432 576h352v64h-352zM304 576h64v64h-64z" p-id="9610"></path></svg>1.2万</span>
+                                <span>02:19:28</span>
+                            </div>
+                        </div>
+                        <h3>妈妈，男生原来可以发出女生的声音的吗？【超硬核男伪女伪音教程】</h3>
+                    </a>
+                </div>
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV1dZ4y1W7XH/" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="picture/封面2.jpg" alt="咽腔共鸣教程封面">
+                            <div class="video-stats">
+                                <span><svg class="icon" style="width: 1.1416015625em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1169 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7606"><path d="M829.373492 0c10.816644 0 20.463921 3.654272 27.772465 10.816644a34.56941 34.56941 0 0 1 4.238955 45.459139l-4.312041 5.115981-95.084148 89.091142h220.279495c92.453073 0 167.146385 79.882378 171.896938 182.128899l0.219256 12.863036v422.506888c0 102.831204-70.965955 187.975733-161.884234 194.626507l-11.401327 0.365428h-49.405753c0 33.76547-28.868746 60.222397-63.803583 60.222396-32.15759 0-59.272286-23.606595-63.291984-52.767682l-0.511599-7.454714H355.195204c0 33.76547-28.868746 60.222397-63.803583 60.222396-32.230676 0-59.345371-23.606595-63.291985-52.767682l-0.511598-7.454714h-54.156306c-92.453073 0-167.146385-79.809293-172.993219-182.055814L0 767.981729v-422.433802c0-104.073656 70.965955-188.121904 161.884234-194.699594l11.474413-0.365427h223.860681L302.208265 61.391764a34.934837 34.934837 0 0 1 0-50.57512A42.389551 42.389551 0 0 1 329.761473 0c8.697167 0 16.590393 2.338734 23.094997 6.943116l4.604382 3.873528 149.240454 139.593177h145.659268L801.747199 10.889729A42.389551 42.389551 0 0 1 829.519663 0z" fill="#979797" p-id="7607"/><path d="M814.902577 591.041896l-346.644209 202.227392c-28.868746 16.80965-52.986939 3.654272-52.986938-31.280565v-405.624152c0-33.76547 24.118193-48.236386 52.986938-31.353651l346.717294 203.469845c28.868746 18.052102 28.868746 44.509029 0 62.561131z" fill="#979797" p-id="7608"/></svg>154.4万</span>
+                                <span><svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9609"><path d="M800 128H224C134.4 128 64 198.4 64 288v448c0 89.6 70.4 160 160 160h576c89.6 0 160-70.4 160-160V288c0-89.6-70.4-160-160-160z m96 608c0 54.4-41.6 96-96 96H224c-54.4 0-96-41.6-96-96V288c0-54.4 41.6-96 96-96h576c54.4 0 96 41.6 96 96v448zM240 384h64v64h-64zM368 384h384v64h-384zM432 576h352v64h-352zM304 576h64v64h-64z" p-id="9610"></path></svg>1.3万</span>
+                                <span>09:47</span>
+                            </div>
+                        </div>
+                        <h3>伪音真的很简单！！萌新一看就懂的咽腔共鸣教程！！【咽腔共鸣篇】</h3>
+                    </a>
+                </div>
+                <div class="video-card">
+                    <a href="https://www.bilibili.com/video/BV1Ji4y1b735/" target="_blank">
+                        <div class="video-thumbnail">
+                            <img src="picture/封面3.jpg" alt="女音结合教程封面">
+                            <div class="video-stats">
+                                <span><svg class="icon" style="width: 1.1416015625em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1169 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7606"><path d="M829.373492 0c10.816644 0 20.463921 3.654272 27.772465 10.816644a34.56941 34.56941 0 0 1 4.238955 45.459139l-4.312041 5.115981-95.084148 89.091142h220.279495c92.453073 0 167.146385 79.882378 171.896938 182.128899l0.219256 12.863036v422.506888c0 102.831204-70.965955 187.975733-161.884234 194.626507l-11.401327 0.365428h-49.405753c0 33.76547-28.868746 60.222397-63.803583 60.222396-32.15759 0-59.272286-23.606595-63.291984-52.767682l-0.511599-7.454714H355.195204c0 33.76547-28.868746 60.222397-63.803583 60.222396-32.230676 0-59.345371-23.606595-63.291985-52.767682l-0.511598-7.454714h-54.156306c-92.453073 0-167.146385-79.809293-172.993219-182.055814L0 767.981729v-422.433802c0-104.073656 70.965955-188.121904 161.884234-194.699594l11.474413-0.365427h223.860681L302.208265 61.391764a34.934837 34.934837 0 0 1 0-50.57512A42.389551 42.389551 0 0 1 329.761473 0c8.697167 0 16.590393 2.338734 23.094997 6.943116l4.604382 3.873528 149.240454 139.593177h145.659268L801.747199 10.889729A42.389551 42.389551 0 0 1 829.519663 0z" fill="#979797" p-id="7607"/><path d="M814.902577 591.041896l-346.644209 202.227392c-28.868746 16.80965-52.986939 3.654272-52.986938-31.280565v-405.624152c0-33.76547 24.118193-48.236386 52.986938-31.353651l346.717294 203.469845c28.868746 18.052102 28.868746 44.509029 0 62.561131z" fill="#979797" p-id="7608"/></svg>18.1万</span>
+                                <span><svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9609"><path d="M800 128H224C134.4 128 64 198.4 64 288v448c0 89.6 70.4 160 160 160h576c89.6 0 160-70.4 160-160V288c0-89.6-70.4-160-160-160z m96 608c0 54.4-41.6 96-96 96H224c-54.4 0-96-41.6-96-96V288c0-54.4 41.6-96 96-96h576c54.4 0 96 41.6 96 96v448zM240 384h64v64h-64zM368 384h384v64h-384zM432 576h352v64h-352zM304 576h64v64h-64z" p-id="9610"></path></svg>847</span>
+                                <span>06:25</span>
+                            </div>
+                        </div>
+                        <h3>【伪音教程】0基础到可爱女声只差一个教程！！【女音结合篇】</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="course-modules">
+            <h2>伪音免费学习资料合集</h2>
+            <div class="qrcode-section">
+                <img src="picture/wxcode.gif" alt="微信二维码" class="qrcode-gif">
+
+            </div>
+            <div class="modules-container">
+                <div class="module-section">
+                    <div class="module-title">
+                        <svg class="folder-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M919.86 188h-469l-85.13-98.48a60.47 60.47 0 0 0-47-22.35H104.14c-52.62 0-95.43 43.77-95.43 97.56v694.53c0 53.8 42.81 97.57 95.43 97.57h815.72c52.62 0 95.43-43.77 95.43-97.57V285.6c0-53.8-42.81-97.6-95.43-97.6z" fill="#00CEDD"/>
+                        </svg>
+                        <h3>模块一：【基础筑造】—— 打好伪音地基，稳步前行</h3>
+                    </div>
+                    <div class="module-content">
+                        <div class="course-item">
+                            <h4>学习蓝图</h4>
+                            <p>清晰规划，伪音学习路径</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>原理透视</h4>
+                            <p>理解男伪女发声机制，事半功倍</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>术语通关</h4>
+                            <p>快速掌握声乐核心词，沟通无障碍</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>练习要点</h4>
+                            <p>如何正确、高效地开始伪音训练</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>效果加速</h4>
+                            <p>提升练习效率，避免走弯路的方法</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>习惯养成</h4>
+                            <p>标准普通话与良好发声，提升声音质感</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-section">
+                    <div class="module-title">
+                        <svg class="folder-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M919.86 188h-469l-85.13-98.48a60.47 60.47 0 0 0-47-22.35H104.14c-52.62 0-95.43 43.77-95.43 97.56v694.53c0 53.8 42.81 97.57 95.43 97.57h815.72c52.62 0 95.43-43.77 95.43-97.57V285.6c0-53.8-42.81-97.6-95.43-97.6z" fill="#00CEDD"/>
+                        </svg>
+                        <h3>模块二：【技巧突破】</h3>
+                    </div>
+                    <div class="module-content">
+                        <div class="course-item">
+                            <h4>气息掌控</h4>
+                            <p>练就稳定有力的气息支持</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>声带调校</h4>
+                            <p>强化感知与闭合更可控</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>男音消除</h4>
+                            <p>实现干净、无杂质的声音</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>共鸣塑造</h4>
+                            <p>运用口型力量优化音色，更显女性化</p>
+                        </div>
+                        <div class="course-item">
+                            <h4>混声奥秘</h4>
+                            <p>掌握自然过渡、柔和悦耳的混声技巧</p>
+                        </div>
+                        <div class="highlight-section">
+                            <h4>【成果检验！】</h4>
+                            <p>实战演练：发出你的第一声"她"！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 思维导图部分 -->
+        <section class="mindmap-section">
+            <div class="mindmap">
+                <div class="central-topic">男声变女声结合步骤-精简版</div>
+                <p class="disclaimer">
+                    流程和方法我一直都在教学实践中不断迭代改进，以下最新流程，与老教程有非常多不同，但内核相通<br>
+                    为便于初学者理解，此处保留核心流程，详细细节 <span style="color: #00b4d8;"><strong>点击了解详情。</strong></span> <br>
+                    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br>
+                    —— by 辣小椒
+                </p>
+                <div class="steps-container">
+                    <a href="picture/混声.jpg" class="step-node step-1">
+                        <div class="step-number">第一步</div>
+                        <div class="action">加入混声技巧</div>
+                        <div class="result">变成生理+心理都往女性靠拢的状态</div>
+                    </a>
+                    <a href="picture/悄悄话.jpg" class="step-node step-2">
+                        <div class="step-number">第二步</div>
+                        <div class="action">加入悄悄话技巧</div>
+                        <div class="result">减少男音，变成中性偏女，但是气较多的状态</div>
+                    </a>
+                    <a href="picture/声带闭合.jpg" class="step-node step-3">
+                        <div class="step-number">第三步</div>
+                        <div class="action">加入声带闭合技巧</div>
+                        <div class="result">变成频率升高，更女性化但声音很实的状态</div>
+                    </a>
+                    <div onclick="window.location.href='picture/咽腔共鸣要点.jpg'; setTimeout(function() { window.location.href='picture/口型训练-数枣儿.jpg'; }, 2000);" class="step-node step-4">
+                        <div class="step-number">第四步</div>
+                        <div class="action">加入共鸣修饰技巧</div>
+                        <div class="result">变成彻底女性化的状态</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
