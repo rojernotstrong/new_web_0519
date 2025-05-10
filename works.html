@@ -326,6 +326,32 @@
             z-index: -1;
             opacity: 0.5;
         }
+
+        /* 伪声学习地图样式 */
+        .learning-map-section {
+            margin: 60px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .learning-map-images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .learning-map-images img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .learning-map-images img {
+                width: 100%;
+            }
+        }
     </style>
     <script>
         // 监听滚动事件，控制GIF播放
@@ -507,7 +533,7 @@
                 <div class="central-topic">男声变女声结合步骤-精简版</div>
                 <p class="disclaimer">
                     流程和方法我一直都在教学实践中不断迭代改进，以下最新流程，与老教程有非常多不同，但内核相通<br>
-                    为便于初学者理解，此处保留核心流程，详细细节 <span style="color: #00b4d8;"><strong>点击了解详情。</strong></span> <br>
+                    为便于初学者理解，此处保留核心流程，详细细节 <span style="color: #00b4d8;"><strong>点击步骤了解详情。</strong></span> <br>
                     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br>
                     —— by 辣小椒
                 </p>
@@ -533,6 +559,18 @@
                         <div class="result">变成彻底女性化的状态</div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 伪声学习地图 -->
+        <section class="learning-map-section">
+            <div class="learning-map-images">
+                <img src="picture/伪声修炼/1.png" alt="伪声学习地图1">
+                <img src="picture/伪声修炼/2.png" alt="伪声学习地图2">
+                <img src="picture/伪声修炼/3.png" alt="伪声学习地图3">
+                <img src="picture/伪声修炼/4.png" alt="伪声学习地图4">
+                <img src="picture/伪声修炼/5.png" alt="伪声学习地图5">
+                <img src="picture/伪声修炼/6.png" alt="伪声学习地图6">
             </div>
         </section>
     </main>
